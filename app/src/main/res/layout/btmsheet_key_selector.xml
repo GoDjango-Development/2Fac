@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background = "@color/bond"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id = "@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:textSize = "22sp"
+        android:layout_margin = "10dp"
+        android:gravity="center"
+        android:textColor = "@color/dark_blue"
+        android:textAppearance="@style/app_font"
+        android:text = "@string/select_a_key"
+        android:textStyle = "bold"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id= "@+id/rvKeys"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        />
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

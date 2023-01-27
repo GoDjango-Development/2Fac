@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    >
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        >
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:textAppearance="@style/app_font"
+        android:textSize = "20sp"
+        android:text = "@string/new_configuration"
+        android:gravity = "center"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/app_font"
+        android:textSize = "16sp"
+        android:layout_margin="15dp"
+        android:hint = "@string/name"
+        android:id = "@+id/etName"
+        />
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id = "@+id/rgType"
+            android:checkedButton="@id/rbDown"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="15dp"
+            >
+            <RadioButton
+                android:id="@+id/rbDown"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/download"
+                android:layout_weight="1"
+                />
+            <RadioButton
+                android:id="@+id/rbUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/upload"
+                android:layout_weight="1"
+                />
+        </RadioGroup>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="5dp"
+            android:textAppearance="@style/app_font"
+            android:textSize = "16sp"
+            android:id = "@+id/btnCancel"
+            app:backgroundTint="@color/red_error"
+            android:text = "@android:string/cancel"
+            android:layout_height="wrap_content"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="20dp"
+            android:textAppearance="@style/app_font"
+            android:textSize = "16sp"
+            android:id = "@+id/btnOk"
+            app:backgroundTint="@color/teal_200"
+            android:text = "@android:string/ok"
+            android:layout_height="wrap_content"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

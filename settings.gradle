@@ -1,0 +1,10 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven { url 'http://nexus.prod.uci.cu/repository/maven-all/'
+            allowInsecureProtocol = true
+        } // Warning: this repository is going to shut down soon
+    }
+}
+rootProject.name = "2fac"
+include ':app'
