@@ -17,17 +17,17 @@ interface ConfigurationDao {
         @Update
         suspend fun updateConfigurationSender(sender: ConfigurationSenderEntity)
 
-        @Query("UPDATE receivers SET pos = :pos WHERE id = :id")
-        suspend fun updatePosReceiver(id:Int,pos:Int)
+        @Query("UPDATE receivers SET pos = :pos WHERE name = :id")
+        suspend fun updatePosReceiver(id:String,pos:Int)
 
-        @Query("UPDATE senders SET pos = :pos WHERE id = :id")
-        suspend fun updatePosSender(id:Int,pos:Int)
+        @Query("UPDATE senders SET pos = :pos WHERE name = :id")
+        suspend fun updatePosSender(id:String,pos:Int)
 
-        @Query("DELETE FROM receivers WHERE id = :id")
-        suspend fun deleteReceiver(id:Int)
+        @Query("DELETE FROM receivers WHERE name = :id")
+        suspend fun deleteReceiver(id:String)
 
-        @Query("DELETE FROM senders WHERE id = :id")
-        suspend fun deleteSender(id:Int)
+        @Query("DELETE FROM senders WHERE name = :id")
+        suspend fun deleteSender(id:String)
 
         @Query("SELECT * FROM senders ORDER BY pos")
         suspend fun getAllSenders():List<ConfigurationSenderEntity>
@@ -38,9 +38,9 @@ interface ConfigurationDao {
         @Query("SELECT senders.publicKey FROM receivers,senders ")
         suspend fun getAllKeys():List<String>
 
-        @Query("update receivers set isOn=:isOn where id=:id")
-        suspend fun setStateReceiver(isOn:Boolean,id:Int)
+        @Query("update receivers set isOn=:isOn where name=:id")
+        suspend fun setStateReceiver(isOn:Boolean,id:String)
 
-        @Query("update senders set isOn=:isOn where id=:id")
-        suspend fun setStateSender(isOn:Boolean,id:Int)
+        @Query("update senders set isOn=:isOn where name=:id")
+        suspend fun setStateSender(isOn:Boolean,id:String)
 }

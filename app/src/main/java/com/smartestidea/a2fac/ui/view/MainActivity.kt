@@ -2,13 +2,14 @@ package com.smartestidea.a2fac.ui.view
 
 import android.Manifest
 import android.app.Dialog
-import android.content.pm.PackageManager
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
@@ -17,7 +18,11 @@ import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
 import com.google.android.material.snackbar.Snackbar
+import com.permissionx.guolindev.PermissionX
 import com.smartestidea.a2fac.R
+import com.smartestidea.a2fac.core.ServerManager.serverListener
+import com.smartestidea.a2fac.core.TYPE
+import com.smartestidea.a2fac.data.model.Configuration
 import com.smartestidea.a2fac.data.model.ConfigurationReceiver
 import com.smartestidea.a2fac.data.model.ConfigurationSender
 import com.smartestidea.a2fac.databinding.ActivityMainBinding
@@ -32,97 +37,137 @@ class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val tfpViewModel: TFPViewModel by viewModels()
-    private val bindingAD: AdNewConfigurationBinding by lazy { AdNewConfigurationBinding.inflate(layoutInflater) }
-    private var alertDialog: Dialog?= null
+    private val bindingAD by lazy { AdNewConfigurationBinding.inflate(layoutInflater) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         val screenSplash = installSplashScreen()
         super.onCreate(savedInstanceState)
-        screenSplash.setKeepOnScreenCondition{false}
+
+        screenSplash.setKeepOnScreenCondition { false }
         setContentView(binding.root)
-        requestSmsPermission()
+
+        requestPermissionsX()
 
         tfpViewModel.onCreate()
-        createAlertDialog()
-
-        
 
         tfpViewModel.configurations.observe(this){configs->
-            Log.i("id-type-main",configs.joinToString { " " })
-                tfpViewModel.run()
-            val configurationAdapter = ConfigurationAdapter(configs, this, tfpViewModel)
-            binding.dragList.adapter = configurationAdapter
+            tfpViewModel.run()
+
+            val adapter = ConfigurationAdapter((configs + listOf(
+                ConfigurationSender(resources.getString(R.string.create_more),"",0,"","","", Int.MAX_VALUE,0,false,"","")
+            )).toMutableList(), this, tfpViewModel)
+            binding.dragList.adapter  = adapter
+
+            binding.dragList.dragListener = onItemDragListener(configs)
+            binding.dragList.swipeListener = onItemSwipeListener()
+
+
+            //drag & drop
+            binding.dragList.apply {
+                layoutManager =  LinearLayoutManager(this@MainActivity)
+                orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
+                orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_UNCONSTRAINED_DRAGGING
+                behindSwipedItemIconDrawableId  = R.drawable.ic_delete_button_svgrepo_com
+                behindSwipedItemIconSecondaryDrawableId = R.drawable.ic_delete_button_svgrepo_com
+                behindSwipedItemIconMargin = 0.5F
+                behindSwipedItemBackgroundSecondaryColor = ContextCompat.getColor(context, R.color.red_error)
+                behindSwipedItemBackgroundColor = ContextCompat.getColor(context, R.color.red_error)
+                reduceItemAlphaOnSwiping = true
+            }
+
+            //dialog
+            binding.btnNewConfig.setOnClickListener {
+                addConfiguration(configs)
+            }
+
         }
         tfpViewModel.loading.observe(this){
             binding.progress.isVisible = it
             binding.dragList.isVisible = !it
         }
 
-        binding.dragList.apply {
-            layoutManager =  LinearLayoutManager(this@MainActivity)
-            orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
-            orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_UNCONSTRAINED_DRAGGING
-            dragListener = onItemDragListener
-            swipeListener = onItemSwipeListener
-            behindSwipedItemIconDrawableId = R.drawable.ic_delete_button_svgrepo_com
-            behindSwipedItemIconMargin = 0.5F
-            behindSwipedItemBackgroundColor = ContextCompat.getColor(context, R.color.red_error)
-            reduceItemAlphaOnSwiping = true
-        }
-        binding.btnNewConfig.setOnClickListener {
-            addConfiguration()
-        }
+    }
 
+    private fun requestPermissionsX() {
+        PermissionX.init(this)
+            .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECEIVE_SMS,Manifest.permission.SEND_SMS)
+            .request { allGranted, grantedList, deniedList ->
+                if (allGranted) {
+//                    Toast.makeText(this, "All permissions are granted", Toast.LENGTH_LONG).show()
+                } else {
+//                    Toast.makeText(this, "These permissions are denied: $deniedList", Toast.LENGTH_LONG).show()
+                    Snackbar.make(binding.coordinator,resources.getString(R.string.grant_permission), Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(ContextCompat.getColor(this,R.color.red_error))
+                        .show()
+                }
+            }
     }
-    private fun addConfiguration() {
-        alertDialog?.show()
-    }
-    private fun createAlertDialog(){
-        alertDialog = Dialog(this)
-        alertDialog?.apply {
+
+
+    private fun addConfiguration(list: List<Configuration>) {
+        Dialog(this).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setCancelable(false)
+            if(bindingAD.root.parent != null){ (bindingAD.root.parent as ViewGroup).removeView(bindingAD.root) }
             setContentView(bindingAD.root)
             bindingAD.apply {
+                var parent:ViewGroup? = null
+                if (btnOk.parent != null) {
+                    parent = (btnOk.parent as ViewGroup)
+                    parent.removeView(btnOk) // <- fix
+                }
                 btnOk.setOnClickListener {
                     val name = etName.text.toString()
                     if(name.isNotEmpty()){
-                        tfpViewModel.configurations.value?.let {
+                        if(!(list.map { it.name }.contains(name))){
+                        list.let {
                             when(rgType.checkedRadioButtonId){
-                                rbDown.id->ConfigurationReceiver(0,name,"",0,"key :: none","","",
-                                    it.size,1000,false,
+                                rbDown.id-> ConfigurationReceiver(name,"",0,"","","",
+                                    it.size,1,false,
                                     emptyList<String>().toMutableList(), emptyList<String>().toMutableList()
                                 )
-                                else -> ConfigurationSender(0,name,"",0,"key :: none","","",it.size,1000,false,
+                                else -> ConfigurationSender(name,"",0,"","","",it.size,1,false,
                                     "",""
                                 )
                             }
-                        }?.let {
-                            tfpViewModel.insert(it)
+                        }.let { config->
+                            tfpViewModel.insert(config)
+                            tfpViewModel.onCreate()
                         }
+                        }else
+                            showInsertNameSB()
                     }else
-                        Snackbar.make(binding.coordinator, resources.getString(R.string.insert_name), Snackbar.LENGTH_LONG).show()
+                        showInsertNameSB()
 
                     cancel()
                 }
+                parent?.addView(btnOk)
+
             }
             bindingAD.btnCancel.setOnClickListener { cancel() }
-
+            show()
         }
     }
-    private val onItemSwipeListener = object : OnItemSwipeListener<String> {
+    private fun showInsertNameSB() = Snackbar.make(binding.coordinator, resources.getString(R.string.insert_name), Snackbar.LENGTH_LONG)
+        .setBackgroundTint(ContextCompat.getColor(this,R.color.red_error)).show()
+
+    private fun onItemSwipeListener() = object : OnItemSwipeListener<String> {
         override fun onItemSwiped(position: Int, direction: OnItemSwipeListener.SwipeDirection, item: String): Boolean {
             // Handle action of item swiped
             // Return false to indicate that the swiped item should be removed from the adapter's data set (default behaviour)
             // Return true to stop the swiped item from being automatically removed from the adapter's data set (in this case, it will be your responsibility to manually update the data set as necessary)
-            Log.e("itemIdSwipe",item)
-            tfpViewModel.delete(item.toInt(),binding.coordinator,this@MainActivity)
-
-            return false
+            Log.i("POSITION",position.toString())
+            tfpViewModel.configurations.value?.let{
+                if(position< it.size)
+                    tfpViewModel.delete(it[position].name,binding.coordinator,this@MainActivity)
+            }
+            return true
         }
     }
 
-    private val onItemDragListener = object : OnItemDragListener<String> {
+    private fun onItemDragListener(list:List<Configuration>) = object : OnItemDragListener<String> {
         override fun onItemDragged(previousPosition: Int, newPosition: Int, item: String) {
             // Handle action of item being dragged from one position to another
             Log.e("itemIdDrag", item)
@@ -132,9 +177,9 @@ class MainActivity : AppCompatActivity() {
         override fun onItemDropped(initialPosition: Int, finalPosition: Int, item: String) {
             // Handle action of item dropped
             Log.e("itemDropped", item)
-            val ids: MutableList<Int> = tfpViewModel.configurations.value?.map { it.id } as MutableList<Int>
+            val ids: MutableList<String> = list.map { it.name } as MutableList<String>
             ids.removeAt(initialPosition)
-            ids.add(finalPosition,item.toInt())
+            ids.add(finalPosition,item)
 
             Log.e("indexes",ids.map { "$it: ${ids.indexOf(it)}"}.toString())
             ids.forEach {
@@ -143,20 +188,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Permissions
-    private fun requestSmsPermission() {
-        val permissions = listOf(
-            Manifest.permission.RECEIVE_SMS,
-            Manifest.permission.SEND_SMS,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        permissions.forEach {
-            val grant = ContextCompat.checkSelfPermission(this, it)
-            if (grant != PackageManager.PERMISSION_GRANTED) {
-                val permissionList = arrayOfNulls<String>(1)
-                permissionList[0] = it
-                ActivityCompat.requestPermissions(this, permissionList, 1)
-            }
-        }
+    override fun onResume() {
+        tfpViewModel.onCreate()
+        super.onResume()
     }
 }

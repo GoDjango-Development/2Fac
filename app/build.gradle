@@ -99,6 +99,10 @@ dependencies {
 
     //switcher
     implementation files("libs/switcher-1.1.2.aar")
+
+    //permission
+    implementation files("libs/permissionx-1.7.1.aar")
+
 }
 
 kapt {

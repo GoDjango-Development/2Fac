@@ -4,7 +4,6 @@ import com.smartestidea.a2fac.core.TYPE
 import com.smartestidea.a2fac.data.database.ConfigurationSenderEntity
 
 class ConfigurationSender (
-    id:Int,
     name:String,
     ipServer:String,
     portServe:Int,
@@ -16,7 +15,7 @@ class ConfigurationSender (
     isOn:Boolean,
     val keyword:String,
     val safeFolder:String,
-        ): Configuration(id,
+        ): Configuration(
  name,
  ipServer,
  portServe,
@@ -26,9 +25,9 @@ publicKey,
  pos,
  interval,
  isOn) {
-    override fun copy(): Configuration = ConfigurationSender(id, name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, keyword, safeFolder)
+    override fun copy(): Configuration = ConfigurationSender(name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, keyword, safeFolder)
     override fun getType(): TYPE = TYPE.SENDER
 
 }
 
-fun ConfigurationSenderEntity.toDomain() = ConfigurationSender(id, name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, keyword, safeFolder)
+fun ConfigurationSenderEntity.toDomain() = ConfigurationSender(name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, keyword, safeFolder)

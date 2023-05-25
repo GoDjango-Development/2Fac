@@ -7,9 +7,7 @@ import com.smartestidea.a2fac.data.model.ConfigurationReceiver
 
 @Entity(tableName = "receivers")
 data class ConfigurationReceiverEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id:Int,
-
+    @PrimaryKey(autoGenerate = false)
     val name:String,
     val ipServer:String,
     val portServe:Int,
@@ -22,4 +20,4 @@ data class ConfigurationReceiverEntity(
     val safeFolders:MutableList<String>,
     val alreadyDownloads:MutableList<String>
 )
-fun ConfigurationReceiver.toDomain() = ConfigurationReceiverEntity(id, name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, safeFolders, alreadyDownloads)
+fun ConfigurationReceiver.toDomain() = ConfigurationReceiverEntity( name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, safeFolders, alreadyDownloads)

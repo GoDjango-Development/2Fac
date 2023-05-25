@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">2fac</string>
+    <string name="ip_server">ipServer</string>
+    <string name="enterprise_name">GoDjango</string>
+    <string name="power_on">Encender</string>
+    <string name="power_on_desc">Conectar con el servidor</string>
+    <string name="ip">conexión dns</string>
+    <string name="port">puerto</string>
+    <string name="version">versión</string>
+    <string name="key_none">clave :: ninguna</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Siguiente</string>
+    <string name="name">Nombre</string>
+    <string name="more">Más</string>
+    <string name="previous">Anterior</string>
+    <string name="your_configurations">Tus configuraciones</string>
+    <string name="new_configuration">Crear una nueva</string>
+    <string name="select_a_key">Selecciona una clave</string>
+
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="insert_name">Inserta un nombre</string>
+    <string name="select_file">Selecciona un fichero</string>
+    <string name="install_file_manager">Instala un gestor de archivos para continuar</string>
+    <string name="invalid_key">Clave inválida</string>
+    <string name="grant_permission">Otorga los permisos</string>
+    <string name="keyword">Palabra clave</string>
+    <string name="safe_folder">Carpeta Segura</string>
+    <string name="interval">Intervalo</string>
+    <string name="error">Un error ha ocurrido</string>
+    <string name="success">Correcto</string>
+    <string name="undo">Deshacer</string>
+    <string name="deleted">Configuración eliminada</string>
+    <string name="retry">Reintentar</string>
+    <string name="download">Descargar</string>
+    <string name="upload">Subir</string>
+    <string name="folder_name">Nombre de la carpeta</string>
+    <string name="already_exists">Esta configuración ya existe</string>
+    <string name="create_more">Crea más configuraciones en el botón de abajo &#128071;</string>
+    <string name="off">Apagada</string>
+    <string name="on">Encendida</string>
+    <string name="wrong_interval">Intervalo incorrecto (1s - …)</string>
+    <string name="powered_by_tfprotocol">Powered by TFProtocol</string>
+    <string name="public_key">Llave pública</string>
+
+</resources>

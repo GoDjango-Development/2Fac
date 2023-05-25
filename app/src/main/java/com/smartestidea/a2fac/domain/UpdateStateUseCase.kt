@@ -7,5 +7,5 @@ import javax.inject.Inject
 class UpdateStateUseCase @Inject constructor(
     private val repository: ConfigurationRepository
 ) {
-    suspend operator fun invoke(isOn:Boolean,id:Int,type: TYPE) = repository.setState(isOn, id,type)
+    suspend operator fun invoke(isOn:Boolean,id:String,type: TYPE) = repository.setState(isOn, id,type)
 }

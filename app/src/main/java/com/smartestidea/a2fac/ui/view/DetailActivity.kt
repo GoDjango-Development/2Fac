@@ -1,19 +1,19 @@
 package com.smartestidea.a2fac.ui.view
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.activity.result.contract.ActivityResultContracts
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -30,8 +30,6 @@ import com.smartestidea.a2fac.ui.adapter.detail.FoldersAdapter
 import com.smartestidea.a2fac.ui.adapter.detail.KeysAdapter
 import com.smartestidea.a2fac.ui.viewmodel.settings.TFPViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.InputStream
-import java.util.*
 
 
 //ipServer,portServer,publicKey,hash,len,protocol,protoHandler
@@ -54,24 +52,26 @@ class DetailActivity : AppCompatActivity() {
             binding.btnSave.isVisible = !it
         }
 
+//        binding.btnSmsSender.setOnClickListener {
+//            SmsSender("+5355096521","THIS REALLY WORK")
+//        }
+
+
 
         val bundle = intent.extras
-        val idIntent = bundle?.getInt("id")
+        val idIntent = bundle?.getString("id")
         val typeIntent = bundle?.getString("type")
-
-
 
         tfpViewModel.onCreate()
 
         tfpViewModel.keys.observe(this) { keys ->
-            binding.fabExistingKey.setOnClickListener {
-                selectKey(keys)
-            }
+//            binding.fabExistingKey.setOnClickListener {
+//                selectKey(keys)
+//            }
         }
             tfpViewModel.configurations.observe(this){configs->
-                Log.i("id-type","$idIntent - $typeIntent")
-                Log.i("id-type-list",configs.toString())
-                val config: Configuration = configs.filter { it.id  == idIntent && (
+                tfpViewModel.run()
+                val config: Configuration = configs.filter { it.name  == idIntent && (
                         if(typeIntent == TYPE.RECEIVER.toString()) {
                             Log.i("id-type-c",typeIntent)
                             it is ConfigurationReceiver
@@ -79,7 +79,6 @@ class DetailActivity : AppCompatActivity() {
                             it is ConfigurationSender
                         }
                         )}[0]
-
                 currentKey = config.publicKey
                 println(currentKey)
 
@@ -88,15 +87,21 @@ class DetailActivity : AppCompatActivity() {
                     switchCompat.setOnCheckedChangeListener { checked ->
                         val type = config.getType()
                         if(checked) {
-                            tfpViewModel.on(config.id,type)
+                            tfpViewModel.connect(config.name,coordinator,this@DetailActivity,type){isOn->
+                                switchCompat.setChecked(isOn)
+                            }
                             tfpViewModel.run()
-                        } else tfpViewModel.of(config.id,type)
+                        } else {
+                            tfpViewModel.of(config.name, type)
+                            tfpViewModel.run()
+                        }
                     }
                     tvConfName.text = config.name
                     etIpServe.setText(config.ipServer)
                     etPortServe.setText(config.portServe.toString())
                     etHash.setText(config.hash)
                     etProtocol.setText(config.protocol)
+                    tvKey.text = config.publicKey
                     //senders fields
                     if(config is ConfigurationSender) {
                         etKeyword.setText(config.keyword)
@@ -117,9 +122,34 @@ class DetailActivity : AppCompatActivity() {
                         fabAddFile.setOnClickListener {addNewFolder()}
                     }
                     etInterval.setText(config.interval.toString())
-                    tvKey.text = config.publicKey.substringBefore(" :: ")
+//                    tvKey.text = config.publicKey.substringBefore(" :: ")
                     btnSave.setOnClickListener {
-                        updateOrCreateConfig(config)
+                        try {
+                            if (etInterval.text?.toString()?.toInt()!! >= 1) {
+                                updateOrCreateConfig(config)
+                                Snackbar.make(
+                                    coordinator,
+                                    resources.getString(R.string.success),
+                                    Snackbar.LENGTH_SHORT
+                                )
+                                    .setBackgroundTint(
+                                        ContextCompat.getColor(
+                                            this@DetailActivity,
+                                            R.color.green_success
+                                        )
+                                    )
+                                    .show()
+
+                            } else {
+                                Snackbar.make(coordinator, resources.getString(R.string.wrong_interval), Snackbar.LENGTH_SHORT)
+                                    .setBackgroundTint(ContextCompat.getColor(this@DetailActivity, R.color.red_error))
+                                    .show()
+                            }
+                        }catch(e:Exception){
+                            Snackbar.make(coordinator, resources.getString(R.string.wrong_interval), Snackbar.LENGTH_SHORT)
+                                .setBackgroundTint(ContextCompat.getColor(this@DetailActivity, R.color.red_error))
+                                .show()
+                        }
                     }
                     binding.etInterval.setOnEditorActionListener { _, actionId, event ->
                         if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
@@ -127,8 +157,11 @@ class DetailActivity : AppCompatActivity() {
                         }
                         false
                     }
-                    fabNewKey.setOnClickListener {
-                        requestPermission()
+//                    fabNewKey.setOnClickListener {
+//
+//                    }
+                    fabPasteKey.setOnClickListener {
+                        chooseKeyFromClipboard()
                     }
 
 
@@ -136,6 +169,19 @@ class DetailActivity : AppCompatActivity() {
             }
 
 
+    }
+
+    private fun chooseKeyFromClipboard() {
+        val clipboard: ClipboardManager =
+            getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        if (clipboard.hasPrimaryClip()) {
+            val clipData: ClipData? = clipboard.primaryClip
+            if (clipData != null && clipData.itemCount > 0) {
+                val key = clipData.getItemAt(0).text
+                // Establecer el texto en la vista correspondiente, por ejemplo:
+                binding.tvKey.text = key
+            }
+        }
     }
 
     private fun addNewFolder() {
@@ -158,22 +204,23 @@ class DetailActivity : AppCompatActivity() {
             tfpViewModel.update(
                 if(config is ConfigurationReceiver)
                     ConfigurationReceiver(
-                        config.id,config.name,
+                        config.name,
                         etIpServe.text.toString(),etPortServe.text.toString().toInt(),
-                        if(currentKey.isNullOrEmpty()) config.publicKey else currentKey!!,etHash.text.toString(),
+//                        if(currentKey.isNullOrEmpty()) config.publicKey else currentKey!!
+                        tvKey.text.toString()
+                        ,etHash.text.toString(),
                         etProtocol.text.toString(),config.pos,etInterval.text.toString().toInt(),
-                        true,foldersList,config.alreadyDownloads)
+                        false,foldersList,config.alreadyDownloads)
                 else
                     ConfigurationSender(
-                        config.id,config.name,
+                        config.name,
                         etIpServe.text.toString(),etPortServe.text.toString().toInt(),
-                        if(currentKey.isNullOrEmpty()) config.publicKey else currentKey!!,etHash.text.toString(),
+//                        if(currentKey.isNullOrEmpty()) config.publicKey else currentKey!!
+                        tvKey.text.toString()
+                        ,etHash.text.toString(),
                         etProtocol.text.toString(),config.pos,etInterval.text.toString().toInt(),
-                        true,etKeyword.text.toString(),etSafeFolder.text.toString())
+                        false,etKeyword.text.toString(),etSafeFolder.text.toString())
             )
-        tfpViewModel.connect(config.id, coordinator,this@DetailActivity, config.getType()
-        ) { isCheck: Boolean -> switchCompat.setChecked(isCheck) }
-
         }
     }
 
@@ -189,42 +236,6 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == 100 && resultCode == RESULT_OK && data != null){
-            val uri = data.data
-            Log.e("uri",uri.toString())
-            val inputStream: InputStream? = contentResolver.openInputStream(uri!!)
-            val s: Scanner = Scanner(inputStream).useDelimiter("\\A")
-            val result = if (s.hasNext()) s.next() else ""
-            Log.d("RESULT!!!!",result)
-            currentKey = "${binding.tvConfName.text}Key :: $result"
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    private fun requestPermission() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            when (PackageManager.PERMISSION_GRANTED) {
-                ContextCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE ) -> {
-                    chooseKeyFromFile()
-                }
-                else -> requestPermissionPhoto.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
-        }else{
-            chooseKeyFromFile()
-        }
-    }
-
-    private val requestPermissionPhoto = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()){
-        if(it)
-            chooseKeyFromFile()
-        else
-            Snackbar.make(binding.coordinator,resources.getString(R.string.grant_permission),Snackbar.LENGTH_SHORT).show()
-    }
-
     private fun selectKey(keys:List<String>){
         val bottomSheetDialog = BottomSheetDialog(this, R.style.Theme_Design_BottomSheetDialog)
         val bindingBS = BtmsheetKeySelectorBinding.inflate(LayoutInflater.from(this))
@@ -238,7 +249,7 @@ class DetailActivity : AppCompatActivity() {
                 object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View?, position: Int) {
                         currentKey = keys[position]
-                        binding.tvKey.text = keys[position].substringBefore(" :: ")
+//                        binding.tvKey.text = keys[position].substringBefore(" :: ")
                     }
 
                     override fun onLongItemClick(view: View?, position: Int) {

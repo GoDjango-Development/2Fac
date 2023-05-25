@@ -4,7 +4,6 @@ import com.smartestidea.a2fac.core.TYPE
 import com.smartestidea.a2fac.data.database.ConfigurationReceiverEntity
 
 class ConfigurationReceiver(
-    id:Int,
     name:String,
     ipServer:String,
     portServe:Int,
@@ -17,7 +16,6 @@ class ConfigurationReceiver(
     val safeFolders:MutableList<String>,
     val alreadyDownloads:MutableList<String>
 ):Configuration(
-    id,
     name,
     ipServer,
     portServe,
@@ -28,9 +26,9 @@ class ConfigurationReceiver(
     interval,
     isOn
 ) {
-    override fun copy(): Configuration = ConfigurationReceiver(id, name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, safeFolders, alreadyDownloads)
+    override fun copy(): Configuration = ConfigurationReceiver(name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, safeFolders, alreadyDownloads)
     override fun getType(): TYPE = TYPE.RECEIVER
 
 }
 
-fun ConfigurationReceiverEntity.toDomain() = ConfigurationReceiver(id, name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, safeFolders, alreadyDownloads)
+fun ConfigurationReceiverEntity.toDomain() = ConfigurationReceiver( name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, safeFolders, alreadyDownloads)

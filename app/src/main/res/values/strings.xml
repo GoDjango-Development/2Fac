@@ -3,7 +3,7 @@
     <string name="ip_server">ipServer</string>
     <string name="enterprise_name">GoDjango</string>
     <string name="power_on">Power On</string>
-    <string name="power_on_desc">Connect with serve</string>
+    <string name="power_on_desc">Connect with server</string>
     <string name="ip">dns connection</string>
     <string name="port">port</string>
     <string name="version">version</string>
@@ -39,6 +39,12 @@
     <string name="download">Download</string>
     <string name="upload">Upload</string>
     <string name="folder_name">Folder name</string>
-
+    <string name="already_exists">This configuration already exists</string>
+    <string name="create_more">Create more configurations in the button bellow &#128071;</string>
+    <string name="off">OFF</string>
+    <string name="on">ON</string>
+    <string name="wrong_interval">Wrong Interval (1s - …)</string>
+    <string name="powered_by_tfprotocol">Powered by TFProtocol</string>
+    <string name="public_key">Public Key</string>
 
 </resources>

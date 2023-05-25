@@ -46,7 +46,6 @@
                     android:background = "@drawable/ic_planet_svgrepo_com_1_"
                     android:layout_margin="10dp"
                     android:src="@drawable/logo_without_background_2fac" />
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -78,14 +77,24 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </com.google.android.material.card.MaterialCardView>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNewConfig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvBranding"
         app:iconSize="24dp"
         android:text = "@string/new_configuration"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBranding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/app_font"
+            android:alpha="0.5"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/bond"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="20dp"
+            android:text="@string/powered_by_tfprotocol"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

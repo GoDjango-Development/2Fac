@@ -23,7 +23,7 @@ class ConfigurationRepository @Inject constructor(
         configurations.sortBy { it.pos }
         return configurations
     }
-    suspend fun deleteConfiguration(id:Int,type: TYPE) {
+    suspend fun deleteConfiguration(id:String,type: TYPE) {
        if(type == TYPE.RECEIVER) dao.deleteReceiver(id)
         else dao.deleteSender(id)
     }
@@ -42,11 +42,11 @@ class ConfigurationRepository @Inject constructor(
         else dao.updateConfigurationSender((configuration as ConfigurationSender).toDomain())
     }
     suspend fun getAllKeys():List<String> = dao.getAllKeys()
-    suspend fun updatePos(id: Int,pos:Int, type: TYPE) {
+    suspend fun updatePos(id: String,pos:Int, type: TYPE) {
         if(type == TYPE.RECEIVER) dao.updatePosReceiver(id, pos)
         else dao.updatePosSender(id,pos)
     }
-    suspend fun setState(isOn:Boolean, id:Int,type: TYPE) {
+    suspend fun setState(isOn:Boolean, id:String,type: TYPE) {
         if(type == TYPE.RECEIVER) dao.setStateReceiver(isOn, id)
         else dao.setStateSender(isOn,id)
     }

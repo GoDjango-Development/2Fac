@@ -7,5 +7,5 @@ import javax.inject.Inject
 class DeleteConfigurationUseCase @Inject constructor(
     private val repository: ConfigurationRepository
 ) {
-    suspend operator fun invoke(id:Int,type: TYPE) = repository.deleteConfiguration(id,type)
+    suspend operator fun invoke(id:String,type: TYPE) = repository.deleteConfiguration(id,type)
 }

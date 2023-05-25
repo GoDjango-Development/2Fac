@@ -6,9 +6,7 @@ import com.smartestidea.a2fac.data.model.ConfigurationSender
 
 @Entity(tableName = "senders")
 data class ConfigurationSenderEntity (
-    @PrimaryKey(autoGenerate = true)
-    val id:Int,
-
+    @PrimaryKey(autoGenerate = false)
     val name:String,
     val ipServer:String,
     val portServe:Int,
@@ -21,4 +19,4 @@ data class ConfigurationSenderEntity (
     val keyword:String,
     val safeFolder:String,
 )
-fun ConfigurationSender.toDomain() = ConfigurationSenderEntity(id, name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, keyword, safeFolder)
+fun ConfigurationSender.toDomain() = ConfigurationSenderEntity(name, ipServer, portServe, publicKey, hash, protocol, pos, interval, isOn, keyword, safeFolder)

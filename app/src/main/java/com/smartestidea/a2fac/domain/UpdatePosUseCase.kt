@@ -8,5 +8,5 @@ import javax.inject.Inject
 class UpdatePosUseCase @Inject constructor(
     private val repository: ConfigurationRepository
 ) {
-    suspend operator fun invoke(id:Int,pos:Int,type: TYPE) = repository.updatePos(id,pos,type)
+    suspend operator fun invoke(id:String,pos:Int,type: TYPE) = repository.updatePos(id,pos,type)
 }

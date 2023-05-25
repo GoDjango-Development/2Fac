@@ -403,85 +403,153 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                app:cardBackgroundColor="@color/bond"
-                app:cardCornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView11">
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:id="@+id/materialCardView12"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginVertical="10dp"-->
+<!--                app:cardBackgroundColor="@color/bond"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/materialCardView11">-->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/materialCardView10"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginVertical="10dp"
-                        android:layout_marginStart="10dp"
-                        app:cardBackgroundColor="@color/bond"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="10dp"
-                        app:contentPadding="15dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+<!--                    <com.google.android.material.card.MaterialCardView-->
+<!--                        android:id="@+id/materialCardView10"-->
+<!--                        android:layout_width="50dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:layout_marginVertical="10dp"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        app:cardBackgroundColor="@color/bond"-->
+<!--                        app:cardCornerRadius="10dp"-->
+<!--                        app:cardElevation="10dp"-->
+<!--                        app:contentPadding="15dp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent">-->
 
-                        <androidx.appcompat.widget.AppCompatImageView
+<!--                        <androidx.appcompat.widget.AppCompatImageView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:src="@drawable/ic_key_svgrepo_com"-->
+<!--                            app:tint="@color/medium_green" />-->
+<!--                    </com.google.android.material.card.MaterialCardView>-->
+
+<!--                    <androidx.appcompat.widget.AppCompatTextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginHorizontal="20dp"-->
+<!--                        android:padding="0dp"-->
+<!--                        tools:text="@string/key_none"-->
+<!--                        android:textAppearance="@style/app_font"-->
+<!--                        android:textColor="@color/dark_blue"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:id = "@+id/tvKey"-->
+<!--                        app:boxBackgroundColor="@color/bond"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toStartOf="@+id/fabNewKey"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/materialCardView10"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                        android:id="@+id/fabExistingKey"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginEnd="10dp"-->
+<!--                        android:elevation="0dp"-->
+<!--                        android:src="@drawable/ic_keyword_selection_svgrepo_com"-->
+<!--                        app:elevation="0dp"-->
+<!--                        app:fabSize="mini"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                        android:id="@+id/fabNewKey"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:elevation="0dp"-->
+<!--                        android:src="@drawable/ic_file_svgrepo_com"-->
+<!--                        app:elevation="0dp"-->
+<!--                        app:fabSize="mini"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toStartOf="@+id/fabExistingKey"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--            </com.google.android.material.card.MaterialCardView>-->
+<!--input-->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvKey"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/ic_key_svgrepo_com"
-                            app:tint="@color/medium_green" />
-                    </com.google.android.material.card.MaterialCardView>
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            app:cardBackgroundColor="@color/bond"
+                            app:cardCornerRadius="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/materialCardView11">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:padding="0dp"
-                        tools:text="@string/key_none"
-                        android:textAppearance="@style/app_font"
-                        android:textColor="@color/dark_blue"
-                        android:textSize="16sp"
-                        android:id = "@+id/tvKey"
-                        app:boxBackgroundColor="@color/bond"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/fabNewKey"
-                        app:layout_constraintStart_toEndOf="@+id/materialCardView10"
-                        app:layout_constraintTop_toTopOf="parent" />
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fabExistingKey"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:elevation="0dp"
-                        android:src="@drawable/ic_keyword_selection_svgrepo_com"
-                        app:elevation="0dp"
-                        app:fabSize="mini"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cvKeyIcon"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginVertical="10dp"
+                                    android:layout_marginStart="10dp"
+                                    app:cardBackgroundColor="@color/bond"
+                                    app:cardCornerRadius="10dp"
+                                    app:cardElevation="10dp"
+                                    app:contentPadding="15dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fabNewKey"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:elevation="0dp"
-                        android:src="@drawable/ic_file_svgrepo_com"
-                        app:elevation="0dp"
-                        app:fabSize="mini"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/fabExistingKey"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+                                    <androidx.appcompat.widget.AppCompatImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/ic_key_svgrepo_com"
+                                        app:tint="@color/medium_green" />
+                                </com.google.android.material.card.MaterialCardView>
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="20dp"
+                                    android:textAppearance="@style/app_font"
+                                    android:textSize="16sp"
+                                    android:padding="0dp"
+                                    app:placeholderText="@string/public_key"
+                                    app:boxBackgroundColor="@color/bond"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/fabPasteKey"
+                                    android:fontFamily="@style/app_font"
+                                    android:textColor="@color/dark_blue"
+                                    android:id="@+id/tvKey"
+                                    android:maxLines="1"
+                                    app:layout_constraintStart_toEndOf="@+id/cvKeyIcon"
+                                    app:layout_constraintTop_toTopOf="parent">
+                                </androidx.appcompat.widget.AppCompatTextView>
+                                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                    android:id="@+id/fabPasteKey"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:elevation="0dp"
+                                    android:src="@drawable/baseline_content_paste_24"
+                                    app:elevation="0dp"
+                                    app:fabSize="mini"
+                                    android:layout_marginEnd="10dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView20"
                 android:layout_width="match_parent"
@@ -491,7 +559,7 @@
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView12">
+                app:layout_constraintTop_toBottomOf="@+id/cvKey">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

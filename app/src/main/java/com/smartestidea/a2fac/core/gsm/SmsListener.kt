@@ -46,6 +46,7 @@ class SmsListener : BroadcastReceiver() {
     }
 
     private suspend fun send(message: String,from:String,context: Context?) {
+        Log.i("SMS_SENDER", "from:$from message:$message")
         val room= RoomModule()
         val database = context?.let { room.getRoomDatabase(it) }
             ?.let { room.getConfigurationDao(it) }
