@@ -27,7 +27,7 @@
                 android:textColor="@color/bond"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:boxBackgroundColor="@color/bond"
+                
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -90,7 +90,7 @@
                         android:layout_height="50dp"
                         android:layout_marginVertical="10dp"
                         android:layout_marginStart="10dp"
-                        app:cardBackgroundColor="@color/bond"
+                        
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp"
                         app:contentPadding="15dp"
@@ -153,7 +153,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        app:cardBackgroundColor="@color/bond"
+        
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +169,7 @@
                 android:layout_height="50dp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="10dp"
-                app:cardBackgroundColor="@color/bond"
+                
                 app:cardCornerRadius="10dp"
                 app:cardElevation="10dp"
                 app:contentPadding="15dp"
@@ -191,7 +191,7 @@
                 android:textAppearance="@style/app_font"
                 android:textSize="16sp"
                 android:padding="0dp"
-                app:boxBackgroundColor="@color/bond"
+                
                 app:placeholderText="@string/ip"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -207,7 +207,7 @@
                     android:maxLines="1"
                     android:inputType="text"
                     android:id = "@+id/etIpServe"
-                    android:textColor="@color/dark_blue" />
+                     />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -217,7 +217,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        app:cardBackgroundColor="@color/bond"
+        
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -233,7 +233,7 @@
                 android:layout_height="50dp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="10dp"
-                app:cardBackgroundColor="@color/bond"
+                
                 app:cardCornerRadius="10dp"
                 app:cardElevation="10dp"
                 app:contentPadding="15dp"
@@ -256,7 +256,7 @@
                 android:textSize="16sp"
                 android:padding="0dp"
                 app:placeholderText="@string/port"
-                app:boxBackgroundColor="@color/bond"
+                
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/materialCardView4"
@@ -271,7 +271,7 @@
                     android:inputType = "number"
                     android:imeOptions="actionNext"
                     android:id = "@+id/etPortServe"
-                    android:textColor="@color/dark_blue" />
+                     />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -281,7 +281,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        app:cardBackgroundColor="@color/bond"
+        
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -297,7 +297,7 @@
                 android:layout_height="50dp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="10dp"
-                app:cardBackgroundColor="@color/bond"
+                
                 app:cardCornerRadius="10dp"
                 app:cardElevation="10dp"
                 app:contentPadding="15dp"
@@ -319,7 +319,7 @@
                 android:textAppearance="@style/app_font"
                 android:textSize="16sp"
                 android:padding="0dp"
-                app:boxBackgroundColor="@color/bond"
+                
                 app:placeholderText="hash"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -335,7 +335,7 @@
                     android:maxLines="1"
                     android:inputType="text"
                     android:id = "@+id/etHash"
-                    android:textColor="@color/dark_blue" />
+                     />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -344,7 +344,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                app:cardBackgroundColor="@color/bond"
+                
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -360,7 +360,7 @@
                         android:layout_height="50dp"
                         android:layout_marginVertical="10dp"
                         android:layout_marginStart="10dp"
-                        app:cardBackgroundColor="@color/bond"
+                        
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp"
                         app:contentPadding="15dp"
@@ -382,7 +382,7 @@
                         android:textAppearance="@style/app_font"
                         android:textSize="16sp"
                         android:padding="0dp"
-                        app:boxBackgroundColor="@color/bond"
+                        
                         app:placeholderText="@string/version"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -398,7 +398,7 @@
                             android:maxLines="1"
                             android:inputType="text"
                             android:id = "@+id/etProtocol"
-                            android:textColor="@color/dark_blue" />
+                             />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -408,7 +408,7 @@
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="wrap_content"-->
 <!--                android:layout_marginVertical="10dp"-->
-<!--                app:cardBackgroundColor="@color/bond"-->
+<!--                -->
 <!--                app:cardCornerRadius="10dp"-->
 <!--                app:layout_constraintEnd_toEndOf="parent"-->
 <!--                app:layout_constraintStart_toStartOf="parent"-->
@@ -424,7 +424,7 @@
 <!--                        android:layout_height="50dp"-->
 <!--                        android:layout_marginVertical="10dp"-->
 <!--                        android:layout_marginStart="10dp"-->
-<!--                        app:cardBackgroundColor="@color/bond"-->
+<!--                        -->
 <!--                        app:cardCornerRadius="10dp"-->
 <!--                        app:cardElevation="10dp"-->
 <!--                        app:contentPadding="15dp"-->
@@ -446,10 +446,10 @@
 <!--                        android:padding="0dp"-->
 <!--                        tools:text="@string/key_none"-->
 <!--                        android:textAppearance="@style/app_font"-->
-<!--                        android:textColor="@color/dark_blue"-->
+<!--                        -->
 <!--                        android:textSize="16sp"-->
 <!--                        android:id = "@+id/tvKey"-->
-<!--                        app:boxBackgroundColor="@color/bond"-->
+<!--                        -->
 <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
 <!--                        app:layout_constraintEnd_toStartOf="@+id/fabNewKey"-->
 <!--                        app:layout_constraintStart_toEndOf="@+id/materialCardView10"-->
@@ -487,7 +487,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="10dp"
-                            app:cardBackgroundColor="@color/bond"
+                            
                             app:cardCornerRadius="10dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -503,7 +503,7 @@
                                     android:layout_height="50dp"
                                     android:layout_marginVertical="10dp"
                                     android:layout_marginStart="10dp"
-                                    app:cardBackgroundColor="@color/bond"
+                                    
                                     app:cardCornerRadius="10dp"
                                     app:cardElevation="10dp"
                                     app:contentPadding="15dp"
@@ -525,11 +525,11 @@
                                     android:textSize="16sp"
                                     android:padding="0dp"
                                     app:placeholderText="@string/public_key"
-                                    app:boxBackgroundColor="@color/bond"
+                                    
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toStartOf="@+id/fabPasteKey"
                                     android:fontFamily="@style/app_font"
-                                    android:textColor="@color/dark_blue"
+                                    
                                     android:id="@+id/tvKey"
                                     android:maxLines="1"
                                     app:layout_constraintStart_toEndOf="@+id/cvKeyIcon"
@@ -555,7 +555,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                app:cardBackgroundColor="@color/bond"
+                
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -571,7 +571,7 @@
                         android:layout_height="50dp"
                         android:layout_marginVertical="10dp"
                         android:layout_marginStart="10dp"
-                        app:cardBackgroundColor="@color/bond"
+                        
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp"
                         app:contentPadding="15dp"
@@ -594,7 +594,7 @@
                         android:textSize="16sp"
                         android:padding="0dp"
                         app:placeholderText="@string/interval"
-                        app:boxBackgroundColor="@color/bond"
+                        
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/materialCardView21"
@@ -607,7 +607,7 @@
                             android:padding="10dp"
                             android:inputType = "number"
                             android:id = "@+id/etInterval"
-                            android:textColor="@color/dark_blue" />
+                             />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -638,7 +638,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/bond"
+                
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -654,7 +654,7 @@
                         android:layout_height="50dp"
                         android:layout_marginVertical="10dp"
                         android:layout_marginStart="10dp"
-                        app:cardBackgroundColor="@color/bond"
+                        
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp"
                         app:contentPadding="15dp"
@@ -676,7 +676,7 @@
                         android:textAppearance="@style/app_font"
                         android:textSize="16sp"
                         android:padding="0dp"
-                        app:boxBackgroundColor="@color/bond"
+                        
                         app:placeholderText="@string/keyword"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -692,7 +692,7 @@
                             android:inputType="text"
                             android:imeOptions="actionNext"
                             android:id = "@+id/etKeyword"
-                            android:textColor="@color/dark_blue" />
+                             />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -701,7 +701,7 @@
                 android:id="@+id/cardSafeFolder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/bond"
+                
                 app:cardCornerRadius="10dp"
                 android:layout_marginVertical="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -718,7 +718,7 @@
                         android:layout_height="50dp"
                         android:layout_marginVertical="10dp"
                         android:layout_marginStart="10dp"
-                        app:cardBackgroundColor="@color/bond"
+                        
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp"
                         app:contentPadding="15dp"
@@ -740,7 +740,6 @@
                         android:padding="0dp"
                         android:textAppearance="@style/app_font"
                         android:textSize="16sp"
-                        app:boxBackgroundColor="@color/bond"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/materialCardView16"
@@ -756,7 +755,7 @@
                             android:maxLines="1"
                             android:inputType="text"
                             android:imeOptions="actionNext"
-                            android:textColor="@color/dark_blue" />
+                             />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>

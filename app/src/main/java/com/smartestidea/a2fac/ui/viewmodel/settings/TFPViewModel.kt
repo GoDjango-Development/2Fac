@@ -235,48 +235,49 @@ fun autoRun(){
 //                            protocolsRunning.add(config)
                         mutexs[protocolIndex].withLock {
                             try {
-                                config.safeFolders.forEach { safeFolder ->
-                                    Log.i("SAFE_FOLDER_${config.name}", safeFolder)
-                                    val tfp = config.toProtocol()
-                                    tfp.tcpTimeOut.connectTimeout = 5000
-                                    tfp.tcpTimeOut.connectRetry = 3
-                                    tfp.tcpTimeOut.dnsResolutionTimeout = 3000
-                                    tfp.connect()
-                                    Log.d("PUBLIC_KEY", config.publicKey)
-                                    Log.d("PUBLIC_TFP_KEY", tfp.publicKey)
+                                if(protocols.find{it.name == config.name}?.isOn == true)
+                                    config.safeFolders.forEach { safeFolder ->
+                                        Log.i("SAFE_FOLDER_${config.name}", safeFolder)
+                                        val tfp = config.toProtocol()
+                                        tfp.tcpTimeOut.connectTimeout = 5000
+                                        tfp.tcpTimeOut.connectRetry = 3
+                                        tfp.tcpTimeOut.dnsResolutionTimeout = 3000
+                                        tfp.connect()
+                                        Log.d("PUBLIC_KEY", config.publicKey)
+                                        Log.d("PUBLIC_TFP_KEY", tfp.publicKey)
 
-                                    val lsvFileName =
-                                        "lsv2Response-${safeFolder}-${config.name}.txt"
-                                    tfp.connect()
+                                        val lsvFileName =
+                                            "lsv2Response-${safeFolder}-${config.name}.txt"
+                                        tfp.connect()
 
-                                    tfp.lsv2Command(
-                                        safeFolder,
-                                        "$safeFolder/$lsvFileName"
-                                    )
-
-                                    val lsv2Content = getContent(
-                                        "$safeFolder/$lsvFileName",
-                                        tfp
-                                    )
-                                    val filesToSend =
-                                        lsv2Content.split("$safeFolder/").filter {
-                                            !it.startsWith("lsv2Response") && it.isNotEmpty() && it != " "
-                                        }
-                                    filesToSend.forEach { fileName ->
-
-                                        val fileContent = getContent(
-                                            "$safeFolder/$fileName",
-                                            tfp
+                                        tfp.lsv2Command(
+                                            safeFolder,
+                                            "$safeFolder/$lsvFileName"
                                         )
 
-                                        if (fileName.isNotEmpty() && fileContent.isNotEmpty())
-                                            SmsSender(fileName, fileContent)
+                                        val lsv2Content = getContent(
+                                            "$safeFolder/$lsvFileName",
+                                            tfp
+                                        )
+                                        val filesToSend =
+                                            lsv2Content.split("$safeFolder/").filter {
+                                                !it.startsWith("lsv2Response") && it.isNotEmpty() && it != " "
+                                            }
+                                        filesToSend.forEach { fileName ->
 
-                                        tfp.delCommand("$safeFolder/$fileName")
+                                            val fileContent = getContent(
+                                                "$safeFolder/$fileName",
+                                                tfp
+                                            )
+
+                                            if (fileName.isNotEmpty() && fileContent.isNotEmpty())
+                                                SmsSender(fileName, fileContent)
+
+                                            tfp.delCommand("$safeFolder/$fileName")
+                                        }
+                                        tfp.delCommand("$safeFolder/$lsvFileName")
+                                        tfp.disconnect()
                                     }
-                                    tfp.delCommand("$safeFolder/$lsvFileName")
-                                    tfp.disconnect()
-                                }
                             } catch (e: Exception) {
                                 Log.e(
                                     "ServerListenerError",
