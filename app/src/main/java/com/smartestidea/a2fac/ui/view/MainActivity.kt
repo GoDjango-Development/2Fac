@@ -2,7 +2,9 @@ package com.smartestidea.a2fac.ui.view
 
 import android.Manifest
 import android.app.Dialog
+import android.content.Intent
 import android.os.AsyncTask
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
@@ -20,6 +22,8 @@ import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListene
 import com.google.android.material.snackbar.Snackbar
 import com.permissionx.guolindev.PermissionX
 import com.smartestidea.a2fac.R
+import com.smartestidea.a2fac.core.Actions
+import com.smartestidea.a2fac.core.ProtocolsService
 import com.smartestidea.a2fac.core.ServerManager.serverListener
 import com.smartestidea.a2fac.core.TYPE
 import com.smartestidea.a2fac.data.model.Configuration
@@ -46,9 +50,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         screenSplash.setKeepOnScreenCondition { false }
+
         setContentView(binding.root)
 
         requestPermissionsX()
+
+        Intent(applicationContext,ProtocolsService::class.java).also {
+            it.action = Actions.START.toString()
+            startService(it)
+        }
 
         tfpViewModel.onCreate()
 
@@ -91,13 +101,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestPermissionsX() {
+        val permissions = mutableListOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECEIVE_SMS,Manifest.permission.SEND_SMS)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissions.add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+
         PermissionX.init(this)
-            .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECEIVE_SMS,Manifest.permission.SEND_SMS)
+            .permissions(permissions)
             .request { allGranted, grantedList, deniedList ->
-                if (allGranted) {
-//                    Toast.makeText(this, "All permissions are granted", Toast.LENGTH_LONG).show()
-                } else {
-//                    Toast.makeText(this, "These permissions are denied: $deniedList", Toast.LENGTH_LONG).show()
+                if (!allGranted) {
                     Snackbar.make(binding.coordinator,resources.getString(R.string.grant_permission), Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(ContextCompat.getColor(this,R.color.red_error))
                         .show()

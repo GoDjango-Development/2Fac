@@ -46,5 +46,6 @@
     <string name="wrong_interval">Wrong Interval (1s - …)</string>
     <string name="powered_by_tfprotocol">Powered by TFProtocol</string>
     <string name="public_key">Public Key</string>
+    <string name="running">Running…</string>
 
 </resources>
